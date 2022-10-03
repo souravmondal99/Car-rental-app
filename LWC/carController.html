@@ -1,0 +1,168 @@
+<template>
+    <div style="min-height: 250px;" class="slds-box slds-theme--default">
+        <div class="slds-text-color_inverse slds-text-heading_large"
+            style="text-align:center;padding:0.5rem;background:#16325c">
+            Car Details
+        </div>
+        <div class="slds-float_right">
+            <lightning-input type="search" onblur={handleKeyChange} class="slds-m-bottom_small" label="Search"
+                maxlength="70">
+            </lightning-input>
+        </div>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" tabindex="0" name="CarImage">
+                            Car Image
+                        </a>
+                    </th>
+                    <th class="" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" tabindex="0" name="CarName">
+                            Car Name
+                        </a>
+                    </th>
+                    <th class="" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" tabindex="0" name="CarType">
+                            Car Type
+                        </a>
+                    </th>
+                    <th class="" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" tabindex="0" name="Color">
+                            Color
+                        </a>
+                    </th>
+                    <th class="" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" tabindex="0" name="Brand">
+                            Brand
+                        </a>
+                    </th>
+
+                    <th class="" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" tabindex="0" name="btn">
+                            Action
+                        </a>
+                    </th>
+
+                </tr>
+
+
+            </thead>
+            <tbody>
+                <template iterator:it={records}>
+                    <tr class="slds-hint-parent" key={it.value.Id}>
+                        <td data-label="CarImage">
+                            <div class="slds-cell-wrap"><img src={it.value.ImgURL__c} class="image" /></div>
+                        </td>
+                        <td data-label="CarName">
+                            <div class="slds-cell-wrap">{it.value.Car_Name__c}</div>
+                        </td>
+
+                        <td class="cost" data-label="CarType">
+                            <div class="slds-cell-wrap">{it.value.Car_Type__c}</div>
+                        </td>
+
+                        <td data-label="Color">
+                            <div class="slds-cell-wrap">{it.value.Color__c}</div>
+                        </td>
+                        <td data-label="Brand">
+                            <div class="slds-cell-wrap">{it.value.Brand__c}</div>
+                        </td>
+
+                        <td data-label="btn">
+                            <div class="slds-cell-wrap">
+                                <lightning-button data-id={it.value.Id} variant="brand" label="Book Now"
+                                    title="Primary action" onclick={handleClick} class="slds-m-left_x-small">
+                                </lightning-button>
+                            </div>
+                        </td>
+
+
+                    </tr>
+                </template>
+</tbody>
+</table>
+</div>
+
+<template if:true={isModalOpen}>
+        <lightning-record-edit-form object-api-name="Booking__c" onerror={handleError} onsuccess={handleSave}>
+
+
+            <!-- Modal/Popup Box LWC starts here -->
+
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <!-- Modal/Popup Box LWC header here -->
+
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Booking Details</h2>
+                    </header>
+
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-layout multiple-rows="true">
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="Car__c" variant="label-stacked" value={carId}>
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="Customer__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="From_Date__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="To_Date__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="Pickup_Location__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="Pickup_Pincode__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="Destination__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="6" class="slds-p-horizontal_small">
+                                <lightning-input-field field-name="Destination_Pincode__c" variant="label-stacked">
+                                </lightning-input-field>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+
+                    <!-- Modal/Popup Box LWC footer starts here -->
+
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal}
+                            title="Cancel">Cancel</button>
+                        <button class="slds-button slds-button_brand" type="submit" title="Save">Save</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+
+        </lightning-record-edit-form>
+    </template>
+
+</template>
