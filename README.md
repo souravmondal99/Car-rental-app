@@ -9,6 +9,8 @@ register and book cars.
 
 ![App Screenshot](https://github.com/souravmondal99/Car-rental-app/blob/main/Images/Car%20rental%20Homepage.png)
 
+![App Screenshot](https://github.com/souravmondal99/Car-rental-app/blob/main/Images/Car%20rental%20home%202.png)
+
 
 ## Features : 
 
